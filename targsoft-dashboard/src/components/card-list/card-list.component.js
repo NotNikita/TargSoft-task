@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import Card from '../card/card.component';
 
 import './card-list.styles.css';
@@ -14,4 +15,8 @@ const CardList = ({ posts, onDelete }) => {
     )
 }
 
-export default CardList
+
+const mapStateToProps = state => ({
+    posts: state.posts
+})
+export default connect(mapStateToProps)(CardList);

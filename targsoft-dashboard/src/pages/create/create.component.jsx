@@ -3,12 +3,23 @@ import { ActionButton, initializeIcons } from '@fluentui/react'
 import { Panel, PrimaryButton, DefaultButton, TextField, Stack } from 'office-ui-fabric-react'
 import './create.styles.css'
 
-function CreatePage({ openPanel }) {
+function CreatePage({ openPanel, handleAddPost }) {
     let [isOpen, setIsOpen] = useState(openPanel)
+    let [form, setForm] = useState({
+        title: '',
+        body: '',
+        userId: 0
+    })
     initializeIcons();
 
     let closePanel = () => {
-        setIsOpen(true)
+        setIsOpen(!isOpen)
+    }
+
+    let submitForm = async () => {
+        setIsOpen(false)
+        handleAddPost(form)
+        console.log('form captured: ' + JSON.stringify(form))
     }
 
     return (
@@ -20,12 +31,12 @@ function CreatePage({ openPanel }) {
 
             <Panel isOpen={isOpen} headerText='Create new post' onDismiss={() => setIsOpen(false)}>
                 <Stack tokens={{ childrenGap: 20 }}>
-                    <TextField label='Title' />
-                    <TextField multiline rows="3" label='Body:' />
-                    <TextField label='User id:' />
+                    <TextField onChange={(e) => setForm({ ...form, title: e.target.value })} label='Title' />
+                    <TextField onChange={(e) => setForm({ ...form, body: e.target.value })}  multiline rows="3" label='Body:' />
+                    <TextField onChange={(e) => setForm({ ...form, userId: e.target.value })} label='User id:' />
                     <Stack horizontal horizontalAlign="space-between">
-                        <PrimaryButton text='Add Post' />
-                        <DefaultButton text='Cancel' />
+                        <PrimaryButton text='Add Post' onClick={submitForm} />
+                        <DefaultButton text='Cancel' onClick={closePanel} />
                     </Stack>
                 </Stack>
             </Panel>
