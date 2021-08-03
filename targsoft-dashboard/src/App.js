@@ -5,20 +5,28 @@ import './App.css';
 import 'office-ui-fabric-react/dist/css/fabric.css';
 
 import CardList from './components/card-list/card-list.component'
-import { setPosts } from './redux/post/post.actions'
 
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      posts: [],
       isOpen: false
     }
     this.deletePostFromList = this.deletePostFromList.bind(this);
     this.closePanel = this.closePanel.bind(this);
     this.addPost = this.addPost.bind(this);
+  }
+
+  componentDidMount() {
+
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(postsFromApi => {
+        this.props.setPosts(postsFromApi)
+      })
+
   }
 
   async deletePostFromList(id) {
@@ -44,15 +52,8 @@ class App extends Component {
     })
   }
 
-
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(posts => this.setState({ posts: posts }))
-  }
-
   render() {
-    const { posts, isOpen } = this.state
+    const { isOpen } = this.state
 
     return (
       <div className='ms-Grid' dir='ltr'>
@@ -61,7 +62,7 @@ class App extends Component {
             <CreatePage openPanel={isOpen} handleAddPost={this.addPost} />
           </div>
           <div className='ms-Grid-col ms-sm11 ms-xl11 main-element'>
-            <CardList onDelete={this.deletePostFromList} posts={posts} />
+            <CardList onDelete={this.deletePostFromList} />
           </div>
         </div>
       </div>
@@ -69,7 +70,17 @@ class App extends Component {
   }
 }
 
-const mapDispatchTpProps = dispatch => ({
-  setPosts: posts => dispatch(setPosts(posts))
+// const mapStateToProps = (state) => ({
+//   postListFromReducer: state.post.posts
+// })
+const mapStateToProps = (state) => {
+
+  return { postListFromReducer: state.post.posts };
+}
+const mapDispatchToProps = (dispatch) => ({
+  setPosts: posts => dispatch({
+    type: 'SET_POSTS',
+    payload: posts
+  })
 })
-export default connect(null, mapDispatchTpProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -4,19 +4,23 @@ import Card from '../card/card.component';
 
 import './card-list.styles.css';
 
-const CardList = ({ posts, onDelete }) => {
+const CardList = ({ onDelete, postsFromRedux }) => {
 
     return (
         <div className='card-list'>
-            {posts.map(post => (
-                <Card key={post.id} onDelete={onDelete} post={post} />
-            ))}
+            { postsFromRedux ?
+                postsFromRedux.map(post => (
+                    <Card key={post.id} onDelete={onDelete} post={post} />
+                ))
+                :
+                'Component is loading'
+            }
         </div>
     )
 }
 
 
 const mapStateToProps = state => ({
-    posts: state.posts
+    postsFromRedux: state.post.posts
 })
 export default connect(mapStateToProps)(CardList);
