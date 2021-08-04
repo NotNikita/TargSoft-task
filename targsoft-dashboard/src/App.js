@@ -14,9 +14,7 @@ class App extends Component {
     this.state = {
       isOpen: false
     }
-    this.deletePostFromList = this.deletePostFromList.bind(this);
     this.closePanel = this.closePanel.bind(this);
-    this.addPost = this.addPost.bind(this);
   }
 
   componentDidMount() {
@@ -28,27 +26,10 @@ class App extends Component {
       })
 
   }
-
-  async deletePostFromList(id) {
-    if (this.state.posts.some(post => post.id === id)) {
-      this.setState({ posts: this.state.posts.filter((post) => post.id !== id) })
-    }
-    else
-      alert('Error Deleting this Post')
-  }
   async closePanel() {
     this.state.setState({
       isOpen:
         this.state.isOpen ? false : true
-    })
-  }
-  async addPost(post) {
-    this.setState({
-      posts: [{
-        title: post.title,
-        body: post.body,
-        userId: post.userId
-      }, ...this.state.posts]
     })
   }
 
@@ -59,10 +40,10 @@ class App extends Component {
       <div className='ms-Grid' dir='ltr'>
         <div className='ms-Grid-row'>
           <div className='ms-Grid-col ms-sm-1 ms-xl1'>
-            <CreatePage openPanel={isOpen} handleAddPost={this.addPost} />
+            <CreatePage openPanel={isOpen} />
           </div>
           <div className='ms-Grid-col ms-sm11 ms-xl11 main-element'>
-            <CardList onDelete={this.deletePostFromList} />
+            <CardList />
           </div>
         </div>
       </div>
@@ -70,9 +51,7 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   postListFromReducer: state.post.posts
-// })
+
 const mapStateToProps = (state) => {
 
   return { postListFromReducer: state.post.posts };

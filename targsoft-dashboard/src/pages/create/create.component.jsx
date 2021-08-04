@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { ActionButton, initializeIcons } from '@fluentui/react'
 import { Panel, PrimaryButton, DefaultButton, TextField, Stack } from 'office-ui-fabric-react'
 import './create.styles.css'
 
-function CreatePage({ openPanel, handleAddPost }) {
+function CreatePage({ openPanel, addPosts }) {
     let [isOpen, setIsOpen] = useState(openPanel)
     let [form, setForm] = useState({
         title: '',
@@ -18,7 +19,11 @@ function CreatePage({ openPanel, handleAddPost }) {
 
     let submitForm = async () => {
         setIsOpen(false)
-        handleAddPost(form)
+        addPosts({
+            title: form.title,
+            body: form.body,
+            userId: form.userId
+        })
         console.log('form captured: ' + JSON.stringify(form))
     }
 
@@ -32,7 +37,7 @@ function CreatePage({ openPanel, handleAddPost }) {
             <Panel isOpen={isOpen} headerText='Create new post' onDismiss={() => setIsOpen(false)}>
                 <Stack tokens={{ childrenGap: 20 }}>
                     <TextField onChange={(e) => setForm({ ...form, title: e.target.value })} label='Title' />
-                    <TextField onChange={(e) => setForm({ ...form, body: e.target.value })}  multiline rows="3" label='Body:' />
+                    <TextField onChange={(e) => setForm({ ...form, body: e.target.value })} multiline rows="3" label='Body:' />
                     <TextField onChange={(e) => setForm({ ...form, userId: e.target.value })} label='User id:' />
                     <Stack horizontal horizontalAlign="space-between">
                         <PrimaryButton text='Add Post' onClick={submitForm} />
@@ -43,4 +48,12 @@ function CreatePage({ openPanel, handleAddPost }) {
         </div>
     )
 }
-export default CreatePage
+
+
+const mapDispatchToProps = (dispatch) => ({
+    addPosts: newPost => dispatch({
+        type: 'ADD_POST',
+        payload: newPost
+    })
+})
+export default connect(null, mapDispatchToProps)(CreatePage)

@@ -1,13 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { initializeIcons } from '@fluentui/react'
 import { FontIcon } from '@fluentui/react/lib/Icon';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { deletePosts } from '../../redux/post/post.actions'
 
 import './card.styles.css';
 
-const Card = ({ post, onDelete }) => {
+const Card = ({ post, deletePosts, postsFromRedux }) => {
     initializeIcons();
 
     function submit(postId) {
@@ -17,7 +19,8 @@ const Card = ({ post, onDelete }) => {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => onDelete(postId)
+                    onClick: () => deletePosts(postId)
+                    // tryToDelete(postId)
                 },
                 {
                     label: 'No',
@@ -40,4 +43,9 @@ const Card = ({ post, onDelete }) => {
     )
 }
 
-export default Card
+
+
+const mapDispatchToProps = (dispatch) => ({
+    deletePosts: id => dispatch(deletePosts(id))
+})
+export default connect(null, mapDispatchToProps)(Card)
