@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/targsoft-task/static/css/main.793502fe.chunk.css",
+    "main.js": "/targsoft-task/static/js/main.8ff50e18.chunk.js",
+    "main.js.map": "/targsoft-task/static/js/main.8ff50e18.chunk.js.map",
+    "runtime-main.js": "/targsoft-task/static/js/runtime-main.07cce52e.js",
+    "runtime-main.js.map": "/targsoft-task/static/js/runtime-main.07cce52e.js.map",
+    "static/css/2.b8ba4fc1.chunk.css": "/targsoft-task/static/css/2.b8ba4fc1.chunk.css",
+    "static/js/2.39b172a6.chunk.js": "/targsoft-task/static/js/2.39b172a6.chunk.js",
+    "static/js/2.39b172a6.chunk.js.map": "/targsoft-task/static/js/2.39b172a6.chunk.js.map",
+    "static/js/3.f6fc8c45.chunk.js": "/targsoft-task/static/js/3.f6fc8c45.chunk.js",
+    "static/js/3.f6fc8c45.chunk.js.map": "/targsoft-task/static/js/3.f6fc8c45.chunk.js.map",
+    "index.html": "/targsoft-task/index.html",
+    "static/css/2.b8ba4fc1.chunk.css.map": "/targsoft-task/static/css/2.b8ba4fc1.chunk.css.map",
+    "static/css/main.793502fe.chunk.css.map": "/targsoft-task/static/css/main.793502fe.chunk.css.map",
+    "static/js/2.39b172a6.chunk.js.LICENSE.txt": "/targsoft-task/static/js/2.39b172a6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.07cce52e.js",
+    "static/css/2.b8ba4fc1.chunk.css",
+    "static/js/2.39b172a6.chunk.js",
+    "static/css/main.793502fe.chunk.css",
+    "static/js/main.8ff50e18.chunk.js"
+  ]
+}
